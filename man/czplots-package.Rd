@@ -4,12 +4,12 @@
 \name{czplots-package}
 \alias{czplots}
 \alias{czplots-package}
-\title{czplots: What the Package Does (One Line, Title Case)}
+\title{czplots: Wrapped Functions to Provide Fast Visulization Appraches}
 \description{
-What the package does (one paragraph).
+Wrapped Functions to Provide Fast Visulization Appraches.
 }
 \author{
-\strong{Maintainer}: First Last \email{first.last@example.com} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
+\strong{Maintainer}: Chenhao Zhou \email{chenhao.zhou@uq.edu.au} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})
 
 }
 \keyword{internal}

@@ -1,0 +1,66 @@
+#' count cell numbers in each group in each cluster  
+#'
+#' This function applies to 10X Visium data and allows you to check cell numbers in each group in each cluster.
+#'
+#' @param data A Seurat object
+#' @param group meta.data_column you want to include to divide each cluster
+#' @param plot whether to plot percentage of each group for each cluster. plot="TRUE"/"T" otherwise no plot
+#' @param plot.cluster select cluster to be included in the plot eg. plot.cluster="C0|C8"
+#' @return A table contains cell numbers in each group in each cluster
+#' @export
+countpercluster <- function(data,group,plot,plot.cluster){
+p<-match(group,colnames(data@meta.data))
+a0<-data@meta.data[,p]
+count<-NULL
+cluster<-sort(unique(data@meta.data$seurat_clusters))
+for(i in 1:length(cluster)) {
+  a<-data@meta.data[data@meta.data$seurat_clusters==cluster[i],]
+  b<-NULL
+  for(j in 1:length(unique(a0))) {
+   b1<-nrow(a[a[,group]==unique(a0)[j],])
+   b<-c(b,b1)
+}
+count<-rbind(count,b)
+}
+rownames(count)<-paste("C",cluster,sep="")
+colnames(count)<-unique(a0)
+total<-colSums(count)
+count<-rbind(count,total)
+
+percent<-NULL
+for(k in 1:ncol(count)) {
+  a<-round(count[,k]/count[nrow(count),k]*100,digits=2)
+percent<-cbind(percent,a)
+}
+colnames(percent)<-paste(unique(a0),"percent",sep="_")
+count<-cbind(count,percent)
+return(count)
+if (plot == "TRUE"| plot =="T") {
+library(ggplot2)
+count2<-count[1:(nrow(count)-1),((ncol(count)/2)+1):ncol(count)]
+colnames(count2)<-unique(a0)
+count_plot<-NULL
+for(h in 1:ncol(count2)) {
+ count3<-count2[,h]
+ N<-rep(colnames(count2)[h],length(count3))
+ count3<-as.data.frame(t(rbind(count3,N)))
+ count_plot<-rbind(count_plot,count3)
+}
+colnames(count_plot)<-c("percentage",group)
+count_plot$seurat_cluster<-rep(paste("C",cluster,sep=""),length(unique(a0)))
+count_plot$percentage<-as.numeric(count_plot$percentage)
+gg_all.cluster<-ggplot(data=count_plot, aes(x=seurat_cluster, y=percentage, fill=factor(count_plot[,group]))) +
+geom_bar(width=0.7, position=position_dodge(width=0.75), stat="identity") +
+labs(y = "Percentage (%)", fill=group) +scale_fill_manual(values = rainbow(length(unique(a0))))+
+theme_bw() + theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank(), plot.title = element_text(hjust = 0.5)) 
+
+p<-grep(plot.cluster,count_plot[,"seurat_cluster"])
+count_plot2<-count_plot[p,]
+gg_plot.cluster<-ggplot(data=count_plot2, aes(x=seurat_cluster, y=percentage, fill=factor(count_plot2[,group]))) +
+geom_bar(width=0.7, position=position_dodge(width=0.75), stat="identity") +
+labs(y = "Percentage (%)", fill=group) +scale_fill_manual(values = rainbow(length(unique(a0))))+
+theme_bw() + theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank(), plot.title = element_text(hjust = 0.5)) 
+  } else {
+    print("No Plot")
+  }
+}
