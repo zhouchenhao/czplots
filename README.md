@@ -6,7 +6,7 @@
 <!-- badges: start -->
 <!-- badges: end -->
 
-R package to help analyse and visualize scRNA-seq data using wrapped and
+R package to help analyze and visualize scRNA-seq data using wrapped and
 customized functions
 
 ## Installation
@@ -21,9 +21,6 @@ pak::pak("zhouchenhao/czplots")
 
 ## Usage instructions
 
-You can install the development version of czplots from
-[GitHub](https://github.com/) with:
-
 ``` r
 library(czplots)
 data(skin_tcell)
@@ -32,8 +29,8 @@ countpercluster(skin_tcell,group = "tissue")
 annotation_heatmap(skin_tcell,gene = c("Cd44","Cd69"), group = "seurat_clusters")
 ```
 
-## Vignettes
+## Vignette
 
 For detailed explanation of each package function, please go to the
-[vignette](https://zhouchenhao.github.io/czplots/articles/Introduction%20to%20czplots.html)
+[vignette](https://zhouchenhao.github.io/czplots/docs/articles/Introduction%20to%20czplots.html)
 for more information and examples.

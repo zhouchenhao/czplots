@@ -1,10 +1,10 @@
 
-#' @title FUNCTION_TITLE
+#' @title Plot gene expression heatmap for each cluster
 #' @description FUNCTION_DESCRIPTION
-#' @param data PARAM_DESCRIPTION
-#' @param gene PARAM_DESCRIPTION
-#' @param group PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
+#' @param data A Seurat object
+#' @param gene a list of genes for heatmap
+#' @param group the name of meta.data column that you want to split the dataset for comparison
+#' @return A heatmap plot showing mean expression of each gene in each group or percentage of cells that have no-zero expression of each gene in each group
 #' @details DETAILS
 #' @examples 
 #' \dontrun{

@@ -1,10 +1,10 @@
-#' @title FUNCTION_TITLE
-#' @description FUNCTION_DESCRIPTION
-#' @param data PARAM_DESCRIPTION
-#' @param group PARAM_DESCRIPTION
-#' @param plot PARAM_DESCRIPTION
-#' @param plot.cluster PARAM_DESCRIPTION
-#' @return OUTPUT_DESCRIPTION
+#' @title count cell numbers in each group in each cluster
+#' @description This function applies to 10X scRNA-seq data and allows you to check cell numbers in each group in each cluster and make a comparison plot.
+#' @param data A Seurat object
+#' @param group the name of meta.data column that you want to split the dataset for comparison
+#' @param plot whether to plot mean expression and percentage of total in each group for each cluster. plot="TRUE"/"T" otherwise no plot
+#' @param plot.cluster select cluster to be included in the plot eg. plot.cluster="C0|C8"
+#' @return A table contains cell numbers in each group in each cluster. Plots showing mean expression and percentage of total in each group for each cluster
 #' @details DETAILS
 #' @examples 
 #' \dontrun{

@@ -3,10 +3,10 @@
 #' This function applies to 10X Visium data and allows you to check cell numbers in each group in each cluster.
 #'
 #' @param data A Seurat object
-#' @param group meta.data_column you want to include to divide each cluster
-#' @param plot whether to plot percentage of each group for each cluster. plot="TRUE"/"T" otherwise no plot
+#' @param group the name of meta.data column that you want to split the dataset for comparison
+#' @param plot whether to plot mean expression and percentage of total in each group for each cluster. plot="TRUE"/"T" otherwise no plot
 #' @param plot.cluster select cluster to be included in the plot eg. plot.cluster="C0|C8"
-#' @return A table contains cell numbers in each group in each cluster
+#' @return A table contains cell numbers in each group in each cluster. Plots showing mean expression and percentage of total in each group for each cluster
 #' @export
 countpercluster <- function(data,group,plot,plot.cluster){
 p<-match(group,colnames(data@meta.data))
