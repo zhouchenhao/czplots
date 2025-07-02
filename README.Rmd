@@ -18,27 +18,29 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-Wrapped functions in R to plot scRNAseq data quickly
+R package to help analyse and visualize scRNA-seq data using wrapped and customized functions
 
 ## Installation
 
 You can install the development version of czplots from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("pak")
+install.packages("pak")
 pak::pak("zhouchenhao/czplots")
 ```
+## Usage instructions
 
-## Example
+You can install the development version of czplots from [GitHub](https://github.com/) with:
 
-There are some basic usages:
-
-```{r example}
+``` r
 library(czplots)
+data(skin_tcell)
 
-#annotation_heatmap(seurat_object,gene = c("Cd44","Cd69"),group = "seurat_clusters") 
-#plot heatmap showing the expression patterns of cell-type associated markers in each group of interest.
-#countpercluster(seurat_object,group = "disease") 
-#calculate cell number in each group of interest and plot percentage of total using bar chart.
+countpercluster(skin_tcell,group = "tissue")
+annotation_heatmap(skin_tcell,gene = c("Cd44","Cd69"), group = "seurat_clusters")
 ```
+
+## Vignettes
+
+For detailed explanation of each package function, please go to the [vignette](https://zhouchenhao.github.io/czplots/articles/Introduction to czplots.html) for more information and examples.
 
