@@ -9,23 +9,23 @@ countpercluster(data, group, plot, plot.cluster)
 countpercluster(data, group, plot, plot.cluster)
 }
 \arguments{
-\item{data}{PARAM_DESCRIPTION}
+\item{data}{A Seurat object}
 
-\item{group}{PARAM_DESCRIPTION}
+\item{group}{the name of meta.data column that you want to split the dataset for comparison}
 
-\item{plot}{PARAM_DESCRIPTION}
+\item{plot}{whether to plot mean expression and percentage of total in each group for each cluster. plot="TRUE"/"T" otherwise no plot}
 
-\item{plot.cluster}{PARAM_DESCRIPTION}
+\item{plot.cluster}{select cluster to be included in the plot eg. plot.cluster="C0|C8"}
 }
 \value{
-A table contains cell numbers in each group in each cluster
+A table contains cell numbers in each group in each cluster. Plots showing mean expression and percentage of total in each group for each cluster
 
-OUTPUT_DESCRIPTION
+A table contains cell numbers in each group in each cluster. Plots showing mean expression and percentage of total in each group for each cluster
 }
 \description{
 This function applies to 10X Visium data and allows you to check cell numbers in each group in each cluster.
 
-FUNCTION_DESCRIPTION
+This function applies to 10X scRNA-seq data and allows you to check cell numbers in each group in each cluster and make a comparison plot.
 }
 \details{
 DETAILS

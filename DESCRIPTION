@@ -1,10 +1,10 @@
 Package: czplots
-Title: Wrapped Functions to Provide Fast Visulization Appraches 
+Title: R package to help analyze and visualize scRNA-seq data using wrapped and customized functions
 Version: 0.0.0.9000
 Authors@R: 
     person("Chenhao", "Zhou", , "chenhao.zhou@uq.edu.au", role = c("aut", "cre"),
            comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: Wrapped Functions to Provide Fast Visulization Appraches.
+Description: R package to help analyze and visualize scRNA-seq data using wrapped and customized functions.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
@@ -18,3 +18,7 @@ Imports:
     ggplot2,
     pheatmap
 VignetteBuilder: knitr
+Depends: 
+    R (>= 2.10)
+LazyData: true
+LazyDataCompression: xz

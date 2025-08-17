@@ -35,8 +35,7 @@ percent<-cbind(percent,a)
 colnames(percent)<-paste(unique(a0),"percent",sep="_")
 count<-cbind(count,percent)
 return(count)
-if (plot == "TRUE"| plot =="T") {
-library(ggplot2)
+if (isTRUE(plot)) {
 count2<-count[1:(nrow(count)-1),((ncol(count)/2)+1):ncol(count)]
 colnames(count2)<-unique(a0)
 count_plot<-NULL
@@ -49,17 +48,17 @@ for(h in 1:ncol(count2)) {
 colnames(count_plot)<-c("percentage",group)
 count_plot$seurat_cluster<-rep(paste("C",cluster,sep=""),length(unique(a0)))
 count_plot$percentage<-as.numeric(count_plot$percentage)
-gg_all.cluster<-ggplot(data=count_plot, aes(x=seurat_cluster, y=percentage, fill=factor(count_plot[,group]))) +
-geom_bar(width=0.7, position=position_dodge(width=0.75), stat="identity") +
-labs(y = "Percentage (%)", fill=group) +scale_fill_manual(values = rainbow(length(unique(a0))))+
-theme_bw() + theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank(), plot.title = element_text(hjust = 0.5)) 
+ggplot2::ggplot(data=count_plot,  ggplot2::aes(x=seurat_cluster, y=percentage, fill=factor(count_plot[,group]))) +
+  ggplot2::geom_bar(width=0.7, position=ggplot2::position_dodge(width=0.75), stat="identity") +
+  ggplot2::labs(y = "Percentage (%)", fill=group) + ggplot2::scale_fill_manual(values = rainbow(length(unique(a0))))+
+  ggplot2::theme_bw() + ggplot2::theme(panel.grid.minor.x=ggplot2::element_blank(), panel.grid.major.x=ggplot2::element_blank(), plot.title = ggplot2::element_text(hjust = 0.5)) 
 
 p<-grep(plot.cluster,count_plot[,"seurat_cluster"])
 count_plot2<-count_plot[p,]
-gg_plot.cluster<-ggplot(data=count_plot2, aes(x=seurat_cluster, y=percentage, fill=factor(count_plot2[,group]))) +
-geom_bar(width=0.7, position=position_dodge(width=0.75), stat="identity") +
-labs(y = "Percentage (%)", fill=group) +scale_fill_manual(values = rainbow(length(unique(a0))))+
-theme_bw() + theme(panel.grid.minor.x=element_blank(), panel.grid.major.x=element_blank(), plot.title = element_text(hjust = 0.5)) 
+ggplot2::ggplot(data=count_plot2,  ggplot2::aes(x=seurat_cluster, y=percentage, fill=factor(count_plot2[,group]))) +
+  ggplot2::geom_bar(width=0.7, position=ggplot2::position_dodge(width=0.75), stat="identity") +
+  ggplot2::labs(y = "Percentage (%)", fill=group) + ggplot2::scale_fill_manual(values = rainbow(length(unique(a0))))+
+  ggplot2::theme_bw() + ggplot2::theme(panel.grid.minor.x=ggplot2::element_blank(), panel.grid.major.x=ggplot2::element_blank(), plot.title = ggplot2::element_text(hjust = 0.5)) 
   } else {
     print("No Plot")
   }

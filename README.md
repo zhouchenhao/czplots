@@ -32,5 +32,5 @@ annotation_heatmap(skin_tcell,gene = c("Cd44","Cd69"), group = "seurat_clusters"
 ## Vignette
 
 For detailed explanation of each package function, please go to the
-[vignette](https://zhouchenhao.github.io/czplots/articles/Introduction.html)
+[vignette](https://zhouchenhao.github.io/czplots/doc/Introduction-to-czplots.html)
 for more information and examples.

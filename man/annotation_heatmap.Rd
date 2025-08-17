@@ -10,16 +10,16 @@ annotation_heatmap(data, gene, group)
 annotation_heatmap(data, gene, group)
 }
 \arguments{
-\item{data}{PARAM_DESCRIPTION}
+\item{data}{A Seurat object}
 
-\item{gene}{PARAM_DESCRIPTION}
+\item{gene}{a list of genes for heatmap}
 
-\item{group}{PARAM_DESCRIPTION}
+\item{group}{the name of meta.data column that you want to split the dataset for comparison}
 }
 \value{
 A heatmap plot showing mean expression of each gene in each group or percentage of cells that have no-zero expression of each gene in each group
 
-OUTPUT_DESCRIPTION
+A heatmap plot showing mean expression of each gene in each group or percentage of cells that have no-zero expression of each gene in each group
 }
 \description{
 This function applies to 10X Visium data and allows you to check cell numbers in each group in each cluster.
