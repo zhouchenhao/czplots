@@ -2,7 +2,9 @@
 title: "Introduction to czplots"
 author: "Chenhao Zhou"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output:
+  rmarkdown::html_vignette:
+    css: custom.css
 vignette: >
   %\VignetteIndexEntry{Introduction to czplots}
   %\VignetteEngine{knitr::rmarkdown}
