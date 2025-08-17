@@ -1,0 +1,16 @@
+url: ~
+template:
+  bootstrap: 5
+
+navbar:
+  structure:
+    left:
+      - home
+      - reference
+      - articles
+      - news
+
+articles:
+- title: "Vignettes"
+  contents:
+  - Introduction-to-czplots
