@@ -1,15 +1,16 @@
-#' @title count cell numbers in each group in each cluster
-#' @description This function applies to 10X scRNA-seq data and allows you to check cell numbers in each group in each cluster and make a comparison plot.
+#' @title count cell numbers per each cluster for each group 
+#' @description This function quickly calculates and visualizes cell numbers and their percentages in each cluster for each group.  
 #' @param data A Seurat object
-#' @param group the name of meta.data column that you want to split the dataset for comparison
-#' @param plot whether to plot mean expression and percentage of total in each group for each cluster. plot="TRUE"/"T" otherwise no plot
-#' @param plot.cluster select cluster to be included in the plot eg. plot.cluster="C0|C8"
-#' @return A table contains cell numbers in each group in each cluster. Plots showing mean expression and percentage of total in each group for each cluster
+#' @param group the name of metadata column within the Seurat object that indicate groups you want to make comparison
+#' @param plot whether or not to plot bar charts comparing percentage of cell type in each group. Specify plot=TRUE, otherwise no plot
+#' @param plot.cluster select which cell cluster to be included in the plot. eg. plot.cluster="C0|C8"
+#' @return A table containing cell numbers in each cluster for each group. Bar charts showing percentage of cell type in each group. 
 #' @details DETAILS
 #' @examples 
 #' \dontrun{
 #' if(interactive()){
 #'  #EXAMPLE1
+#'  countpercluster(skin_tcell,group = "tissue",plot=TRUE)
 #'  }
 #' }
 #' @rdname countpercluster

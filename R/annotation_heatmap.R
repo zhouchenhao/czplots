@@ -1,12 +1,9 @@
-#' count cell numbers in each group in each cluster  
-#'
-#' This function applies to 10X Visium data and allows you to check cell numbers in each group in each cluster.
-#'
+#' @title plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group 
+#' @description
 #' @param data A Seurat object
-#' @param gene a list of genes for heatmap #gene<-c("Cd44","Cd69","Itgae","Ccr7","Il7r","Tbx21","Ifng","Il2","Gata3","Il4","Il5","Foxp3","Ctla4","Pdcd1","Tigit","Il2ra","Gzmb","Il10","Il17a","Cxcr5","Bcl6","Cd8a","Cd4") # can be replaced by y
-
-#' @param group meta.data_column you want to include to divide each cluster #group<-"seurat_clusters"
-#' @return A heatmap plot showing mean expression of each gene in each group or percentage of cells that have no-zero expression of each gene in each group
+#' @param gene a list of genes for heatmap eg. gene<-c("Cd44","Cd69","Itgae","Ccr7","Il7r","Tbx21","Ifng","Il2","Gata3","Il4","Il5","Foxp3","Ctla4","Pdcd1","Tigit","Il2ra","Gzmb","Il10","Il17a","Cxcr5","Bcl6","Cd8a","Cd4")
+#' @param group the name of meta.data column within the Seurat object that indicates the cell cluster eg. group<-"seurat_clusters"
+#' @return A heatmap plot showing mean expression or percentage of cells that have no-zero expression of each gene in each cell cluster
 #' @export
 annotation_heatmap <- function(data,gene,group){
 expr_matrix <- Seurat::GetAssayData(data, assay = "RNA", slot = "data")

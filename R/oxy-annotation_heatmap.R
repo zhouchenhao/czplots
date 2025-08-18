@@ -1,15 +1,16 @@
 
-#' @title Plot gene expression heatmap for each cluster
-#' @description FUNCTION_DESCRIPTION
+#' @title plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group 
+#' @description
 #' @param data A Seurat object
-#' @param gene a list of genes for heatmap
-#' @param group the name of meta.data column that you want to split the dataset for comparison
-#' @return A heatmap plot showing mean expression of each gene in each group or percentage of cells that have no-zero expression of each gene in each group
+#' @param gene a list of genes for heatmap eg. gene<-c("Cd44","Cd69","Itgae","Ccr7","Il7r","Tbx21","Ifng","Il2","Gata3","Il4","Il5","Foxp3","Ctla4","Pdcd1","Tigit","Il2ra","Gzmb","Il10","Il17a","Cxcr5","Bcl6","Cd8a","Cd4")
+#' @param group the name of meta.data column within the Seurat object that indicates the cell cluster eg. group<-"seurat_clusters"
+#' @return A heatmap plot showing mean expression or percentage of cells that have no-zero expression of each gene in each cell cluster
 #' @details DETAILS
 #' @examples 
 #' \dontrun{
 #' if(interactive()){
 #'  #EXAMPLE1
+#'  annotation_heatmap(skin_tcell,gene = c("Cd44","Cd69"), group = "seurat_clusters")
 #'  }
 #' }
 #' @rdname annotation_heatmap
