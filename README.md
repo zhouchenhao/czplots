@@ -15,7 +15,7 @@ users focus on interpreting biology behind the data.
 
 Perfect for researchers who want to generate plots with a single line!
 
-(The package is actively updating with more functions coming soon)
+\*The package is actively developing with more functions coming soon
 
 ## Installation
 

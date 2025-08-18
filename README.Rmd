@@ -22,7 +22,7 @@ This R package provides wrapped and customized functions for fast and intuitive 
 
 Perfect for researchers who want to generate plots with a single line!
 
-(The package is actively updating with more functions coming soon)
+*The package is actively developing with more functions coming soon
 
 
 ## Installation
