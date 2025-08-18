@@ -8,12 +8,14 @@
 
 This R package provides wrapped and customized functions for fast and
 intuitive analysis of scRNA-seq data. It simplifies common tasks, such
-as identifying enriched cell types, gene pathways and ligand–receptor
-interactions. Researchers can generate insightful plots quickly without
-extensive coding. The goal is to save time and let users focus on
-interpreting biology behind the data.
+as cluster annotation, identifying enriched cell types, gene pathways
+and ligand–receptor interactions. Researchers can generate insightful
+plots quickly without extensive coding. The goal is to save time and let
+users focus on interpreting biology behind the data.
 
 Perfect for researchers who want to generate plots with a single line!
+
+(The package is actively updating with more functions coming soon)
 
 ## Installation
 
