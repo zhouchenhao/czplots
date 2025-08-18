@@ -18,7 +18,8 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-R package to help analyze and visualize scRNA-seq data using wrapped and customized functions
+This R package provides wrapped and customized functions for fast and intuitive analysis of scRNA-seq data. It simplifies common tasks, such as identifying enriched cell types, genes pathways and ligand–receptor interactions. Researchers can generate insightful plots quickly without extensive coding. The goal is to save time and let users focus on interpreting biology behind the data. 
+
 
 ## Installation
 
@@ -32,9 +33,14 @@ pak::pak("zhouchenhao/czplots")
 
 ``` r
 library(czplots)
+
+#load test dataset
 data(skin_tcell)
 
+#calculate compositional change for each cell cluster between two experimental groups and return a table and bar charts
 countpercluster(skin_tcell,group = "tissue")
+
+#plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group
 annotation_heatmap(skin_tcell,gene = c("Cd44","Cd69"), group = "seurat_clusters")
 ```
 
