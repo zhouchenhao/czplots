@@ -17,12 +17,20 @@ knitr::opts_chunk$set(
   comment = "#>"
 )
 ```
+Welcome to `czplots`! This R package provides functions for fast and intuitive analysis of scRNA-seq data. Here, we will go through a quick tutorial on how to use these functions.
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+To get started, this package incudes a trimmed test dataset of 2,000 mouse skin T cells derived from [Zhou et al 2021](https://academic.oup.com/immunohorizons/article/5/2/102/7820221?login=true). we will use this test dataset to demonstate key functions within this package.
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+``` r
+library(czplots)
+
+#load test dataset
+data(skin_tcell)
+
+skin_tcell@meta.data
+```
+
+
 
 ## Vignette Info
 
