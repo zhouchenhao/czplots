@@ -24,28 +24,31 @@ data(skin_tcell)
 ```
 Welcome to `czplots`! This R package provides functions for fast and intuitive analysis of scRNA-seq data. Here, we will go through a quick tutorial on how to use these functions.
 
-To get started, this package incudes a trimmed test dataset of 2,000 mouse skin T cells derived from [Zhou et al 2021](https://academic.oup.com/immunohorizons/article/5/2/102/7820221?login=true). we will use this test dataset to demonstate key functions within this package.
+To get started, this package incudes a trimmed test dataset of 2,000 mouse skin T cells downloaded from [Zhou et al 2021](https://academic.oup.com/immunohorizons/article/5/2/102/7820221?login=true). we will use this test dataset to demonstate key functions within this package.
 
-``` r
+``` {r, echo=TRUE, warning=FALSE,}
 library(czplots)
 library(Seurat)
 
 #load test dataset
 data(skin_tcell)
 
-skin_tcell@meta.data[1:2,]
-#                          orig.ident nCount_RNA nFeature_RNA   tissue percent.mt integrated_snn_res.0.5 seurat_clusters  TCR
-#skin_E7g_AAAGCAACACCAGGTC gex_5prime       2690         1114 skin_E7g   1.784387                      0               0 TCR+
-#skin_E7g_AAAGCAATCAAAGACA gex_5prime       1921          752 skin_E7g   2.134305                      0               0 TCR+
-
 ```
 
 First, let’s take a look at the dataset. It includes 9 skin T cell clusters (C0–C8) derived from two mouse groups: K14E7 transgenic mice and wildtype C57BL/6 mice.
 
+``` {r, echo=TRUE,warning=FALSE,}
+skin_tcell@meta.data[1:2,]
 
-## cell type composition analysis 
+unique(skin_tcell@meta.data$tissue)
 
-A common starting point in most analyses is identifying which cell types are enriched in each group, condition, or disease. This package provides a fast and convenient way to calculate the proportion of each cluster within each group and visualize the differences using a bar chart. To use this function, the user must specify two arguments: group and level. Examples are provided below."
+unique(skin_tcell@meta.data$seurat_clusters)
+
+```
+
+## Cell type composition analysis 
+
+A common starting point in most analyses is identifying which cell types are enriched in each group, condition, or disease. This package provides a fast and convenient way to calculate the proportion of each cluster within each group and visualize the differences using a bar chart. To use this function, the user must specify two arguments: (1) group and (2) level. Examples are provided below."
 
 ```{r, fig.show='asis'}
 countpercluster(skin_tcell,group="tissue",level<-c("skin_E7g","skin_C57g"))
@@ -54,38 +57,14 @@ countpercluster(skin_tcell,group="tissue",level<-c("skin_E7g","skin_C57g"))
 
 ## Annotation
 
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
+This function allows users to quickly generate the heatmap plots summarising expression pattern of selected gene markers.
+Plot 1 shows mean expression of each marker. Plot 2 shows percentage of cells that have non-zero expression of each marker. 
 
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
+```{r, fig.show='asis',message = FALSE, warning=FALSE}
+annotation_heatmap(skin_tcell,gene=c("Cd44","Cd69","Itgae","Ccr7","Il7r","Tbx21","Ifng","Il2","Gata3","Il4","Il5","Foxp3","Ctla4","Pdcd1","Tigit","Il2ra","Gzmb","Il10","Il17a","Cxcr5","Bcl6","Cd8a","Cd4"),group="seurat_clusters")
 
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
 
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
 
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
-```
-
-Also a quote using `>`:
-
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))

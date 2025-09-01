@@ -42,7 +42,7 @@ library(czplots)
 data(skin_tcell)
 
 #calculate compositional change for each cell cluster between two experimental groups and return a table and bar charts
-countpercluster(skin_tcell,group = "tissue")
+countpercluster(skin_tcell,group = "tissue",level<-c("skin_E7g","skin_C57g"))
 
 #plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group
 annotation_heatmap(skin_tcell,gene = c("Cd44","Cd69"), group = "seurat_clusters")

@@ -1,19 +1,20 @@
 /* Change body font and size */
 body {
   font-family: "Arial", sans-serif;  /* or "Times New Roman", "Georgia", etc. */
-  font-size: 14px;                   /* adjust as needed */
+  font-size: 8px;                   /* adjust as needed */
   line-height: 1.5;
 }
 
 /* Headings style */
 h1, h2, h3, h4 {
-  font-family: "Georgia", serif;
+  font-family: "Arial", serif;
   font-weight: bold;
+  font-size: 10px;
   color: #2a3f5f;  /* optional */
 }
 
 /* Code blocks */
 pre, code {
   font-family: "Courier New", monospace;
-  font-size: 12px;
+  font-size: 8px;
 }

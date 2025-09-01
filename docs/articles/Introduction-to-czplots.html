@@ -77,7 +77,7 @@ Zhou</h4>
 for fast and intuitive analysis of scRNA-seq data. Here, we will go
 through a quick tutorial on how to use these functions.</p>
 <p>To get started, this package incudes a trimmed test dataset of 2,000
-mouse skin T cells derived from <a href="https://academic.oup.com/immunohorizons/article/5/2/102/7820221?login=true" class="external-link">Zhou
+mouse skin T cells downloaded from <a href="https://academic.oup.com/immunohorizons/article/5/2/102/7820221?login=true" class="external-link">Zhou
 et al 2021</a>. we will use this test dataset to demonstate key
 functions within this package.</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -85,27 +85,40 @@ functions within this package.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://satijalab.org/seurat" class="external-link">Seurat</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="co">#load test dataset</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">skin_tcell</span><span class="op">)</span></span>
-<span></span>
-<span><span class="va">skin_tcell</span><span class="op">@</span><span class="va">meta.data</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="op">]</span></span>
-<span><span class="co">#                          orig.ident nCount_RNA nFeature_RNA   tissue percent.mt integrated_snn_res.0.5 seurat_clusters  TCR</span></span>
-<span><span class="co">#skin_E7g_AAAGCAACACCAGGTC gex_5prime       2690         1114 skin_E7g   1.784387                      0               0 TCR+</span></span>
-<span><span class="co">#skin_E7g_AAAGCAATCAAAGACA gex_5prime       1921          752 skin_E7g   2.134305                      0               0 TCR+</span></span></code></pre></div>
+<span><span class="fu"><a href="https://rdrr.io/r/utils/data.html" class="external-link">data</a></span><span class="op">(</span><span class="va">skin_tcell</span><span class="op">)</span></span></code></pre></div>
 <p>First, let’s take a look at the dataset. It includes 9 skin T cell
 clusters (C0–C8) derived from two mouse groups: K14E7 transgenic mice
 and wildtype C57BL/6 mice.</p>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">skin_tcell</span><span class="op">@</span><span class="va">meta.data</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">2</span>,<span class="op">]</span></span>
+<span><span class="co">#&gt;                           orig.ident nCount_RNA nFeature_RNA   tissue</span></span>
+<span><span class="co">#&gt; skin_E7g_AAAGCAACACCAGGTC gex_5prime       2690         1114 skin_E7g</span></span>
+<span><span class="co">#&gt; skin_E7g_AAAGCAATCGCATGGC gex_5prime       2496         1008 skin_E7g</span></span>
+<span><span class="co">#&gt;                           percent.mt integrated_snn_res.0.5 seurat_clusters</span></span>
+<span><span class="co">#&gt; skin_E7g_AAAGCAACACCAGGTC   1.784387                      0               0</span></span>
+<span><span class="co">#&gt; skin_E7g_AAAGCAATCGCATGGC   3.165064                      0               0</span></span>
+<span><span class="co">#&gt;                            TCR</span></span>
+<span><span class="co">#&gt; skin_E7g_AAAGCAACACCAGGTC TCR+</span></span>
+<span><span class="co">#&gt; skin_E7g_AAAGCAATCGCATGGC TCR+</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">skin_tcell</span><span class="op">@</span><span class="va">meta.data</span><span class="op">$</span><span class="va">tissue</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "skin_E7g"  "skin_C57g"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/unique.html" class="external-link">unique</a></span><span class="op">(</span><span class="va">skin_tcell</span><span class="op">@</span><span class="va">meta.data</span><span class="op">$</span><span class="va">seurat_clusters</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0 8 1 4 7 6 2 3 5</span></span>
+<span><span class="co">#&gt; Levels: 0 1 2 3 4 5 6 7 8</span></span></code></pre></div>
 <div class="section level2">
-<h2 id="cell-type-composition-analysis">cell type composition analysis<a class="anchor" aria-label="anchor" href="#cell-type-composition-analysis"></a>
+<h2 id="cell-type-composition-analysis">Cell type composition analysis<a class="anchor" aria-label="anchor" href="#cell-type-composition-analysis"></a>
 </h2>
 <p>A common starting point in most analyses is identifying which cell
 types are enriched in each group, condition, or disease. This package
 provides a fast and convenient way to calculate the proportion of each
 cluster within each group and visualize the differences using a bar
-chart. To use this function, the user must specify two arguments: group
-and level. Examples are provided below.”</p>
-<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+chart. To use this function, the user must specify two arguments: (1)
+group and (2) level. Examples are provided below.”</p>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/countpercluster.html">countpercluster</a></span><span class="op">(</span><span class="va">skin_tcell</span>,group<span class="op">=</span><span class="st">"tissue"</span>,<span class="va">level</span><span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"skin_E7g"</span>,<span class="st">"skin_C57g"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Introduction-to-czplots_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
+<p><img src="Introduction-to-czplots_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <pre><code><span><span class="co">#&gt;       skin_E7g skin_C57g skin_E7g_percent skin_C57g_percent</span></span>
 <span><span class="co">#&gt; C0         259       147            22.78             17.03</span></span>
 <span><span class="co">#&gt; C1         262       112            23.04             12.98</span></span>
@@ -121,216 +134,14 @@ and level. Examples are provided below.”</p>
 <div class="section level2">
 <h2 id="annotation">Annotation<a class="anchor" aria-label="anchor" href="#annotation"></a>
 </h2>
-<p>The <code>html_vignette</code> template includes a basic CSS theme.
-To override this theme you can specify your own CSS in the document
-metadata as follows:</p>
-<pre><code><span><span class="va">output</span><span class="op">:</span> </span>
-<span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="va"><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_vignette.html" class="external-link">html_vignette</a></span><span class="op">:</span></span>
-<span>    <span class="va">css</span><span class="op">:</span> <span class="va">mystyles.css</span></span></code></pre>
-</div>
-<div class="section level2">
-<h2 id="figures">Figures<a class="anchor" aria-label="anchor" href="#figures"></a>
-</h2>
-<p>The figure sizes have been customised so that you can easily put two
-images side-by-side.</p>
+<p>This function allows users to quickly generate the heatmap plots
+summarising expression pattern of selected gene markers. Plot 1 shows
+mean expression of each marker. Plot 2 shows percentage of cells that
+have non-zero expression of each marker.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html" class="external-link">plot</a></span><span class="op">(</span><span class="fl">10</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Introduction-to-czplots_files/figure-html/unnamed-chunk-2-1.png" width="700"><img src="Introduction-to-czplots_files/figure-html/unnamed-chunk-2-2.png" width="700"></p>
-<p>You can enable figure captions by <code>fig_caption: yes</code> in
-YAML:</p>
-<pre><code><span><span class="va">output</span><span class="op">:</span></span>
-<span>  <span class="fu">rmarkdown</span><span class="fu">::</span><span class="va"><a href="https://pkgs.rstudio.com/rmarkdown/reference/html_vignette.html" class="external-link">html_vignette</a></span><span class="op">:</span></span>
-<span>    <span class="va">fig_caption</span><span class="op">:</span> <span class="va">yes</span></span></code></pre>
-<p>Then you can use the chunk option
-<code>fig.cap = "Your figure caption."</code> in
-<strong>knitr</strong>.</p>
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/annotation_heatmap.html">annotation_heatmap</a></span><span class="op">(</span><span class="va">skin_tcell</span>,gene<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"Cd44"</span>,<span class="st">"Cd69"</span>,<span class="st">"Itgae"</span>,<span class="st">"Ccr7"</span>,<span class="st">"Il7r"</span>,<span class="st">"Tbx21"</span>,<span class="st">"Ifng"</span>,<span class="st">"Il2"</span>,<span class="st">"Gata3"</span>,<span class="st">"Il4"</span>,<span class="st">"Il5"</span>,<span class="st">"Foxp3"</span>,<span class="st">"Ctla4"</span>,<span class="st">"Pdcd1"</span>,<span class="st">"Tigit"</span>,<span class="st">"Il2ra"</span>,<span class="st">"Gzmb"</span>,<span class="st">"Il10"</span>,<span class="st">"Il17a"</span>,<span class="st">"Cxcr5"</span>,<span class="st">"Bcl6"</span>,<span class="st">"Cd8a"</span>,<span class="st">"Cd4"</span><span class="op">)</span>,group<span class="op">=</span><span class="st">"seurat_clusters"</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Introduction-to-czplots_files/figure-html/unnamed-chunk-4-1.png" width="700"><img src="Introduction-to-czplots_files/figure-html/unnamed-chunk-4-2.png" width="700"></p>
 </div>
-<div class="section level2">
-<h2 id="more-examples">More Examples<a class="anchor" aria-label="anchor" href="#more-examples"></a>
-</h2>
-<p>You can write math expressions, e.g. <span class="math inline">\(Y =
-X\beta + \epsilon\)</span>, footnotes<a class="footnote-ref" tabindex="0" data-bs-toggle="popover" data-bs-content="&lt;p&gt;A footnote here.&lt;/p&gt;"><sup>1</sup></a>, and tables, e.g. using
-<code><a href="https://rdrr.io/pkg/knitr/man/kable.html" class="external-link">knitr::kable()</a></code>.</p>
-<table style="width:100%;" class="table">
-<colgroup>
-<col width="25%">
-<col width="7%">
-<col width="5%">
-<col width="8%">
-<col width="5%">
-<col width="7%">
-<col width="8%">
-<col width="8%">
-<col width="4%">
-<col width="4%">
-<col width="7%">
-<col width="7%">
-</colgroup>
-<thead><tr class="header">
-<th align="left"></th>
-<th align="right">mpg</th>
-<th align="right">cyl</th>
-<th align="right">disp</th>
-<th align="right">hp</th>
-<th align="right">drat</th>
-<th align="right">wt</th>
-<th align="right">qsec</th>
-<th align="right">vs</th>
-<th align="right">am</th>
-<th align="right">gear</th>
-<th align="right">carb</th>
-</tr></thead>
-<tbody>
-<tr class="odd">
-<td align="left">Mazda RX4</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.620</td>
-<td align="right">16.46</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">Mazda RX4 Wag</td>
-<td align="right">21.0</td>
-<td align="right">6</td>
-<td align="right">160.0</td>
-<td align="right">110</td>
-<td align="right">3.90</td>
-<td align="right">2.875</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-<tr class="odd">
-<td align="left">Datsun 710</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">108.0</td>
-<td align="right">93</td>
-<td align="right">3.85</td>
-<td align="right">2.320</td>
-<td align="right">18.61</td>
-<td align="right">1</td>
-<td align="right">1</td>
-<td align="right">4</td>
-<td align="right">1</td>
-</tr>
-<tr class="even">
-<td align="left">Hornet 4 Drive</td>
-<td align="right">21.4</td>
-<td align="right">6</td>
-<td align="right">258.0</td>
-<td align="right">110</td>
-<td align="right">3.08</td>
-<td align="right">3.215</td>
-<td align="right">19.44</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">Hornet Sportabout</td>
-<td align="right">18.7</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">175</td>
-<td align="right">3.15</td>
-<td align="right">3.440</td>
-<td align="right">17.02</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">Valiant</td>
-<td align="right">18.1</td>
-<td align="right">6</td>
-<td align="right">225.0</td>
-<td align="right">105</td>
-<td align="right">2.76</td>
-<td align="right">3.460</td>
-<td align="right">20.22</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
-<td align="left">Duster 360</td>
-<td align="right">14.3</td>
-<td align="right">8</td>
-<td align="right">360.0</td>
-<td align="right">245</td>
-<td align="right">3.21</td>
-<td align="right">3.570</td>
-<td align="right">15.84</td>
-<td align="right">0</td>
-<td align="right">0</td>
-<td align="right">3</td>
-<td align="right">4</td>
-</tr>
-<tr class="even">
-<td align="left">Merc 240D</td>
-<td align="right">24.4</td>
-<td align="right">4</td>
-<td align="right">146.7</td>
-<td align="right">62</td>
-<td align="right">3.69</td>
-<td align="right">3.190</td>
-<td align="right">20.00</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="odd">
-<td align="left">Merc 230</td>
-<td align="right">22.8</td>
-<td align="right">4</td>
-<td align="right">140.8</td>
-<td align="right">95</td>
-<td align="right">3.92</td>
-<td align="right">3.150</td>
-<td align="right">22.90</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">2</td>
-</tr>
-<tr class="even">
-<td align="left">Merc 280</td>
-<td align="right">19.2</td>
-<td align="right">6</td>
-<td align="right">167.6</td>
-<td align="right">123</td>
-<td align="right">3.92</td>
-<td align="right">3.440</td>
-<td align="right">18.30</td>
-<td align="right">1</td>
-<td align="right">0</td>
-<td align="right">4</td>
-<td align="right">4</td>
-</tr>
-</tbody>
-</table>
-<p>Also a quote using <code>&gt;</code>:</p>
-<blockquote>
-<p>“He who gives up [code] safety for [code] speed deserves neither.”
-(<a href="https://twitter.com/hadleywickham/status/504368538874703872" class="external-link">via</a>)</p>
-</blockquote>
-</div>
-
   </main><aside class="col-md-3"><nav id="toc"><h2>On this page</h2>
     </nav></aside>
 </div>
