@@ -1,7 +1,7 @@
 /* Change body font and size */
 body {
   font-family: "Arial", sans-serif;  /* or "Times New Roman", "Georgia", etc. */
-  font-size: 16px;                   /* adjust as needed */
+  font-size: 14px;                   /* adjust as needed */
   line-height: 1.5;
 }
 
@@ -15,5 +15,5 @@ h1, h2, h3, h4 {
 /* Code blocks */
 pre, code {
   font-family: "Courier New", monospace;
-  font-size: 14px;
+  font-size: 12px;
 }

@@ -16,6 +16,11 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>"
 )
+# Load required packages
+library(czplots)
+library(Seurat)
+# Load the dataset once
+data(skin_tcell)
 ```
 Welcome to `czplots`! This R package provides functions for fast and intuitive analysis of scRNA-seq data. Here, we will go through a quick tutorial on how to use these functions.
 
@@ -37,22 +42,13 @@ skin_tcell@meta.data[1:2,]
 
 First, let’s take a look at the dataset. It includes 9 skin T cell clusters (C0–C8) derived from two mouse groups: K14E7 transgenic mice and wildtype C57BL/6 mice.
 
-```{r, fig.show='asis'}
-library(Seurat)
-DimPlot(skin_tcell,label = T)
-DimPlot(skin_tcell,group.by="tissue")
-```
-
-
-
-
 
 ## cell type composition analysis 
 
 A common starting point in most analyses is identifying which cell types are enriched in each group, condition, or disease. This package provides a fast and convenient way to calculate the proportion of each cluster within each group and visualize the differences using a bar chart. To use this function, the user must specify two arguments: group and level. Examples are provided below."
 
 ```{r, fig.show='asis'}
-countpercluster(combine.sct,group="tissue",level<-c("skin_E7g","skin_C57g"))
+countpercluster(skin_tcell,group="tissue",level<-c("skin_E7g","skin_C57g"))
 
 ```
 
