@@ -38,9 +38,13 @@ skin_tcell@meta.data[1:2,]
 First, let’s take a look at the dataset. It includes 9 skin T cell clusters (C0–C8) derived from two mouse groups: K14E7 transgenic mice and wildtype C57BL/6 mice.
 
 ```{r, fig.show='asis'}
+library(Seurat)
 DimPlot(skin_tcell,label = T)
 DimPlot(skin_tcell,group.by="tissue")
 ```
+
+
+
 
 
 ## cell type composition analysis 
@@ -52,17 +56,7 @@ countpercluster(combine.sct,group="tissue",level<-c("skin_E7g","skin_C57g"))
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-## Styles
+## Annotation
 
 The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
 

@@ -3,7 +3,7 @@
 %   R/oxy-annotation_heatmap.R
 \name{annotation_heatmap}
 \alias{annotation_heatmap}
-\title{count cell numbers in each group in each cluster}
+\title{plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group}
 \usage{
 annotation_heatmap(data, gene, group)
 
@@ -12,19 +12,19 @@ annotation_heatmap(data, gene, group)
 \arguments{
 \item{data}{A Seurat object}
 
-\item{gene}{a list of genes for heatmap}
+\item{gene}{a list of genes for heatmap eg. gene<-c("Cd44","Cd69","Itgae","Ccr7","Il7r","Tbx21","Ifng","Il2","Gata3","Il4","Il5","Foxp3","Ctla4","Pdcd1","Tigit","Il2ra","Gzmb","Il10","Il17a","Cxcr5","Bcl6","Cd8a","Cd4")}
 
-\item{group}{the name of meta.data column that you want to split the dataset for comparison}
+\item{group}{the name of meta.data column within the Seurat object that indicates the cell cluster eg. group<-"seurat_clusters"}
 }
 \value{
-A heatmap plot showing mean expression of each gene in each group or percentage of cells that have no-zero expression of each gene in each group
+A heatmap plot showing mean expression or percentage of cells that have no-zero expression of each gene in each cell cluster
 
-A heatmap plot showing mean expression of each gene in each group or percentage of cells that have no-zero expression of each gene in each group
+A heatmap plot showing mean expression or percentage of cells that have no-zero expression of each gene in each cell cluster
 }
 \description{
-This function applies to 10X Visium data and allows you to check cell numbers in each group in each cluster.
+plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group
 
-FUNCTION_DESCRIPTION
+plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group
 }
 \details{
 DETAILS
@@ -33,6 +33,7 @@ DETAILS
 \dontrun{
 if(interactive()){
  #EXAMPLE1
+ annotation_heatmap(skin_tcell,gene = c("Cd44","Cd69"), group = "seurat_clusters")
  }
 }
 }

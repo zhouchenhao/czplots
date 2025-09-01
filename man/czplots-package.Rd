@@ -4,9 +4,9 @@
 \name{czplots-package}
 \alias{czplots}
 \alias{czplots-package}
-\title{czplots: Wrapped Functions to Provide Fast Visulization Appraches}
+\title{czplots: R package to help analyze and visualize scRNA-seq data using wrapped and customized functions}
 \description{
-Wrapped Functions to Provide Fast Visulization Appraches.
+R package to help analyze and visualize scRNA-seq data using wrapped and customized functions.
 }
 \author{
 \strong{Maintainer}: Chenhao Zhou \email{chenhao.zhou@uq.edu.au} (\href{https://orcid.org/YOUR-ORCID-ID}{ORCID})

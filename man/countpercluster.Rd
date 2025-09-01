@@ -2,30 +2,28 @@
 % Please edit documentation in R/countpercluster.R, R/oxy-countpercluster.R
 \name{countpercluster}
 \alias{countpercluster}
-\title{count cell numbers in each group in each cluster}
+\title{count cell numbers per each cluster for each group}
 \usage{
-countpercluster(data, group, plot, plot.cluster)
+countpercluster(data, group, level)
 
-countpercluster(data, group, plot, plot.cluster)
+countpercluster(data, group, level)
 }
 \arguments{
 \item{data}{A Seurat object}
 
-\item{group}{the name of meta.data column that you want to split the dataset for comparison}
+\item{group}{the name of metadata column within the Seurat object that indicate groups you want to make comparison}
 
-\item{plot}{whether to plot mean expression and percentage of total in each group for each cluster. plot="TRUE"/"T" otherwise no plot}
-
-\item{plot.cluster}{select cluster to be included in the plot eg. plot.cluster="C0|C8"}
+\item{level}{the order of group names you want in your plot}
 }
 \value{
-A table contains cell numbers in each group in each cluster. Plots showing mean expression and percentage of total in each group for each cluster
+A table containing cell numbers in each cluster for each group. Bar charts showing percentage of cell type in each group.
 
-A table contains cell numbers in each group in each cluster. Plots showing mean expression and percentage of total in each group for each cluster
+A table containing cell numbers in each cluster for each group. Bar charts showing percentage of cell type in each group.
 }
 \description{
-This function applies to 10X Visium data and allows you to check cell numbers in each group in each cluster.
+This function quickly calculates and visualizes cell numbers and their percentages in each cluster for each group.
 
-This function applies to 10X scRNA-seq data and allows you to check cell numbers in each group in each cluster and make a comparison plot.
+This function quickly calculates and visualizes cell numbers and their percentages in each cluster for each group.
 }
 \details{
 DETAILS
@@ -34,6 +32,7 @@ DETAILS
 \dontrun{
 if(interactive()){
  #EXAMPLE1
+ countpercluster(skin_tcell,group = "tissue",level=unique(skin_tcell@meta.data$tissue))
  }
 }
 }

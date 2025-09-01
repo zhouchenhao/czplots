@@ -46,7 +46,8 @@ Matrix_combined_percent<-Matrix_final_percent[,-1]
 rownames(Matrix_combined_percent)<-gene
 colnames(Matrix_combined_percent)<-a
 pheatmap::pheatmap(Matrix_combined_percent,color = c("#3690c0","#74a9cf", "#fdd49e", "#fc8d59","#ef6548", "#d7301f", "#b30000", "#7f0000"), border_color="white",cluster_rows=F,cluster_cols=F,breaks = c(0,1,10,20,30,50,80,100),legend_breaks =c(0,1,10,20,30,50,80,100),angle_col = c("45"),main = "Percentage of cells per group")
-
+print(Matrix_combined_mean)
+print(Matrix_combined_percent)
 } 
 
 
