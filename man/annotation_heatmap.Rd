@@ -6,8 +6,6 @@
 \title{plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group}
 \usage{
 annotation_heatmap(data, gene, group)
-
-annotation_heatmap(data, gene, group)
 }
 \arguments{
 \item{data}{A Seurat object}
@@ -18,12 +16,8 @@ annotation_heatmap(data, gene, group)
 }
 \value{
 A heatmap plot showing mean expression or percentage of cells that have no-zero expression of each gene in each cell cluster
-
-A heatmap plot showing mean expression or percentage of cells that have no-zero expression of each gene in each cell cluster
 }
 \description{
-plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group
-
 plot heatmap to visualize expression of provided key markers in each cell cluster or experimental group
 }
 \details{

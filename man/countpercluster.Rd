@@ -5,8 +5,6 @@
 \title{count cell numbers per each cluster for each group}
 \usage{
 countpercluster(data, group, level)
-
-countpercluster(data, group, level)
 }
 \arguments{
 \item{data}{A Seurat object}
@@ -17,12 +15,8 @@ countpercluster(data, group, level)
 }
 \value{
 A table containing cell numbers in each cluster for each group. Bar charts showing percentage of cell type in each group.
-
-A table containing cell numbers in each cluster for each group. Bar charts showing percentage of cell type in each group.
 }
 \description{
-This function quickly calculates and visualizes cell numbers and their percentages in each cluster for each group.
-
 This function quickly calculates and visualizes cell numbers and their percentages in each cluster for each group.
 }
 \details{
